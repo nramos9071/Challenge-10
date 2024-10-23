@@ -1,5 +1,8 @@
 
+        
         <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="40" fill="Black"/>
+            <polygon points="150,0, 0,200, 300,200" fill="black"/>
         </svg>
         
+        <text x="50%" y="50%" fill="white" font-size="40" text-anchor="middle" dy=".3em">NIC</text>
+    
