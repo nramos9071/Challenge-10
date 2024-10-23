@@ -63,8 +63,10 @@ function generateImg(shape, shapeColor, characters) {
     }
 
     return `
-        ${svgElement.render()}
-        <text x="50%" y="50%" fill="${characters.getColor()}" font-size="40" text-anchor="middle" dy=".3em">${characters.getCharacters()}</text>
+        <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+            ${svgElement.render()}
+            <text x="50%" y="50%" fill="${characters.getColor()}" font-size="40" text-anchor="middle" dy=".3em">${characters.getCharacters()}</text>
+        </svg>
     `;
 }
 
