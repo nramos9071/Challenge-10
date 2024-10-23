@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
-const shapes = require('./lib/shapes');
+const { Triangle, Circle, Square } = require('./lib/shapes');
 
 
 
@@ -40,46 +40,36 @@ const questions = [
 
 ];
 
-function generateImg() {
-    
-    return `
-        <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-            <${shape} cx="50" cy="50" r="40" fill="${color}"/>
-        </svg>
-    
-    
-    `;
+function generateImg(shape, color) {
+    let svgElement;
+
+    switch (shape) {
+        case 'Circle':
+            svgElement = new Circle(300, 200, 50, 50, 40, color);
+            break;
+        case 'Triangle':
+            svgElement = new Triangle(300, 200, "0,200", "100,0", "200,200", color);
+            break;
+        case 'Square':
+            svgElement = new Square(300, 200, 0, 0, 20, 20, color);
+            break;
+    }
+
+    return svgElement.render();
+
 }
 
+
 function init() {
-
     inquirer.prompt(questions).then(answers => {
-        
-        const shape = answers.shape;
-        const color = answers.color;
-        const words = answers.characters;
-        const image = generateImg(shapes, color, words);
-
-        function generateImg() {
-    
-            return `
-                <svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
-                    <${shape} cx="50" cy="50" r="40" fill="${color}"/>
-                </svg>
-            
-            
-            `;
-        };
-
+        const { name, shape, color, characters } = answers;
+        const characterObj = new Characters(name);
+        characterObj.addCharacters(characters);
+        const image = generateImg(shape, color);
         fs.writeFileSync('image.svg', image);
-
-        console.log(`SVG file has been created using ${shape}, ${color}, and ${words} `);
-
-    })
-
-};
-
-
+        console.log(`SVG file has been created using ${shape}, ${color}, and characters: ${characterObj.getCharacters()}`);
+    });
+}
 
 
 init();
